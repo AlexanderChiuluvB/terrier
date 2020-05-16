@@ -68,12 +68,6 @@ install() {
   esac
 }
 
-install_pip() {
-  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-  python get-pip.py
-  rm get-pip.py
-}
-
 install_mac() {
   # Install Homebrew.
   if test ! $(which brew); then
@@ -95,20 +89,12 @@ install_mac() {
   brew ls --versions postgresql || brew install postgresql
   brew ls --versions tbb || brew install tbb
   brew ls --versions ant || brew install ant
-  python3 -m pip --version || install_pip
-  #install pyarrow
-  python3 -m pip show pyarrow || python3 -m pip install pyarrow
-  python3 -m pip show pandas || python3 -m pip install pandas
 }
 
 install_linux() {
   # Update apt-get.
   apt-get -y update
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> upstream/15721-s20-project2
   # IMPORTANT: If you change anything listed below, you must also change it in the Dockerfile
   # in the root directory of the repository!
   apt-get -y install \
@@ -132,19 +118,8 @@ install_linux() {
       sqlite3 \
       libsqlite3-dev \
       ant \
-<<<<<<< HEAD
-      wget \
-      python3-pip
-
-  #install pyarrow
-  python3 -m pip show pyarrow || python3 -m pip install pyarrow
-  #install pandas
-  python3 -m pip show pandas || python3 -m pip install pandas
-         
-=======
       wget
 
->>>>>>> upstream/15721-s20-project2
   # IMPORTANT: Ubuntu 18.04 does not have libpqxx-6.2 available. So we have to download the package
   # manually and install it ourselves. We are *not* able to upgrade to libpqxx-6.4 because 18.04
   # does not have the right version of libstdc++6 that it needs.
