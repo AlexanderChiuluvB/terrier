@@ -104,7 +104,11 @@ install_mac() {
 install_linux() {
   # Update apt-get.
   apt-get -y update
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> upstream/15721-s20-project2
   # IMPORTANT: If you change anything listed below, you must also change it in the Dockerfile
   # in the root directory of the repository!
   apt-get -y install \
@@ -128,6 +132,7 @@ install_linux() {
       sqlite3 \
       libsqlite3-dev \
       ant \
+<<<<<<< HEAD
       wget \
       python3-pip
 
@@ -136,6 +141,10 @@ install_linux() {
   #install pandas
   python3 -m pip show pandas || python3 -m pip install pandas
          
+=======
+      wget
+
+>>>>>>> upstream/15721-s20-project2
   # IMPORTANT: Ubuntu 18.04 does not have libpqxx-6.2 available. So we have to download the package
   # manually and install it ourselves. We are *not* able to upgrade to libpqxx-6.4 because 18.04
   # does not have the right version of libstdc++6 that it needs.
