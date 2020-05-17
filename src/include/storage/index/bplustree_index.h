@@ -37,6 +37,7 @@ class BPlusTreeIndex final : public Index {
 
   void PerformGarbageCollection() final {
     // FIXME(15-721 project2): invoke garbage collection on the underlying data structure
+    bplustree_->PerformGarbageCollection();
   }
 
   size_t GetHeapUsage() const final {
@@ -52,7 +53,7 @@ class BPlusTreeIndex final : public Index {
     index_key.SetFromProjectedRow(tuple, metadata_, metadata_.GetSchema().GetColumns().size());
     // FIXME(15-721 project2): perform a non-unique unconditional insert into the underlying data structure of the
     // key/value pair
-    const bool UNUSED_ATTRIBUTE result = true;
+    const bool result = bplustree_->Insert(index_key, location, false);
 
     TERRIER_ASSERT(
         result,
@@ -60,8 +61,7 @@ class BPlusTreeIndex final : public Index {
     // Register an abort action with the txn context in case of rollback
     txn->RegisterAbortAction([=]() {
       // FIXME(15-721 project2): perform a delete from the underlying data structure of the key/value pair
-      const bool UNUSED_ATTRIBUTE result = true;
-
+      const bool result = bplustree_->Delete(index_key, location);
       TERRIER_ASSERT(result, "Delete on the index failed.");
     });
     return result;
